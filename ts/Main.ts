@@ -100,15 +100,11 @@ app.get('/quit/:game_id/:player_id', async (req, res) => {
 });
 
 app.get('/stats', async (req, res) => {
-    const date = new Date();
-    const hours = 24;
-    date.setHours(date.getHours() - hours);
     const rows = await databaseService.query(`
         select
-            (select count(*) from games where data->>'created_at' > $1) as created,
-            (select count(*) from games where data->>'started_at' > $1) as started,
-            (select count(*) from games where data->>'ended_at' > $1) as ended
-        `, [date.toISOString()]);
+            (select count(*) from games where (data->>'created_at')::timestamp > current_timestamp - interval '24 hours') as created,
+            (select count(*) from games where (data->>'started_at')::timestamp > current_timestamp - interval '24 hours') as started,
+            (select count(*) from games where (data->>'ended_at')::timestamp > current_timestamp - interval '24 hours') as ended`);
     res.send(rows[0]);
 });
 
