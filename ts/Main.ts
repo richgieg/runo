@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import { MAX_PLAYER_NAME_LENGTH, create_new_game, get_state, leave_game, admin_start_game, join_game, get_open_games, play_card, player_draw_card } from './Runo';
+import { databaseService } from './Services/DatabaseService';
 
 const PORT = Number(process.env.PORT) || 8080;
 const app = express();
@@ -96,6 +97,19 @@ app.get('/quit/:game_id/:player_id', async (req, res) => {
     const player_id = req.params.player_id;
     await leave_game(game_id, player_id);
     res.redirect('/');
+});
+
+app.get('/stats', async (req, res) => {
+    const date = new Date();
+    const hours = 24;
+    date.setHours(date.getHours() - hours);
+    const rows = await databaseService.query(`
+        select
+            (select count(*) from games where data->>'created_at' > $1) as created,
+            (select count(*) from games where data->>'started_at' > $1) as started,
+            (select count(*) from games where data->>'ended_at' > $1) as ended
+        `, [date.toISOString()]);
+    res.send(rows[0]);
 });
 
 app.listen(PORT, () => {
