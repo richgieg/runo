@@ -63,6 +63,23 @@ td {
     padding: 1em;
 }
 
+.donate-message {
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px;
+}
+
+.donate-message2 {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.donate-button {
+    text-align: center;
+    margin: 8px;
+}
+
 @media (min-width: 500px) {
     table {
         font-size: 0.8em;
