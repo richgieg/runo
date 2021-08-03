@@ -764,7 +764,7 @@ export async function get_state(game_id: string, player_id: string): Promise<IGa
     }
     (game_data as any).messages = messages;
     (game_data as any).draw_pile_size = game_data.deck.length;
-    delete game_data.deck;
+    delete (game_data as any).deck;
     let last_discard = null;
     if (game_data.stack.length > 0) {
         last_discard = game_data.stack[game_data.stack.length - 1];
@@ -772,7 +772,7 @@ export async function get_state(game_id: string, player_id: string): Promise<IGa
     (game_data as any).last_discard = last_discard;
     (game_data as any).discard_pile_size = game_data.stack.length;
     for (const p of game_data.players) {
-        delete p.messages;
+        delete (p as any).messages;
         (p as any).hand_size = p.hand.length;
         if (p === player && p.active) {
             (p as any).draw_required = true;
@@ -784,10 +784,10 @@ export async function get_state(game_id: string, player_id: string): Promise<IGa
             }
         } else if (p !== player) {
             (p as any).id = null;
-            delete p.hand;
+            delete (p as any).hand;
         }
     }
-    delete game_data.stack;
+    delete (game_data as any).stack;
     return game_data;
 }
 
