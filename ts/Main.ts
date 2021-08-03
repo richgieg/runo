@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import { MAX_PLAYER_NAME_LENGTH, create_new_game, get_state, leave_game, admin_start_game, join_game, get_open_games, play_card, player_draw_card } from './Runo';
 import { databaseService } from './Services/DatabaseService';
+import { BadRequestError } from './Errors/Errors';
 
 const PORT = Number(process.env.PORT) || 8080;
 const app = express();
@@ -52,6 +53,9 @@ app.get('/newgame', async (req, res) => {
 
 app.get('/join', async (req, res) => {
     const game_id = req.query.game_id;
+    if (typeof game_id !== 'string') {
+        throw new BadRequestError();
+    }
     const name = (req.query.name as string).slice(0, MAX_PLAYER_NAME_LENGTH);
     const player = await join_game(game_id, name);
     if (player) {
@@ -64,30 +68,60 @@ app.get('/join', async (req, res) => {
 
 app.get('/start', async (req, res) => {
     const game_id = req.query.game_id;
+    if (typeof game_id !== 'string') {
+        throw new BadRequestError();
+    }
     const player_id = req.query.player_id;
+    if (typeof player_id !== 'string') {
+        throw new BadRequestError();
+    }
     const result = await admin_start_game(game_id, player_id);
     res.send({ result });
 });
 
 app.get('/getstate', async (req, res) => {
     const game_id = req.query.game_id;
+    if (typeof game_id !== 'string') {
+        throw new BadRequestError();
+    }
     const player_id = req.query.player_id;
+    if (typeof player_id !== 'string') {
+        throw new BadRequestError();
+    }
     const game_state = await get_state(game_id, player_id);
     res.send(game_state);
 });
 
 app.get('/playcard', async (req, res) => {
     const game_id = req.query.game_id;
+    if (typeof game_id !== 'string') {
+        throw new BadRequestError();
+    }
     const player_id = req.query.player_id;
+    if (typeof player_id !== 'string') {
+        throw new BadRequestError();
+    }
     const card_id = req.query.card_id;
+    if (typeof card_id !== 'string') {
+        throw new BadRequestError();
+    }
     const selected_color = req.query.selected_color;
+    if (typeof selected_color !== 'string') {
+        throw new BadRequestError();
+    }
     const result = await play_card(game_id, player_id, card_id, selected_color);
     res.send({ result });
 });
 
 app.get('/draw', async (req, res) => {
     const game_id = req.query.game_id;
+    if (typeof game_id !== 'string') {
+        throw new BadRequestError();
+    }
     const player_id = req.query.player_id;
+    if (typeof player_id !== 'string') {
+        throw new BadRequestError();
+    }
     const result = await player_draw_card(game_id, player_id);
     res.send({ result });
 });
