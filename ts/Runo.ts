@@ -496,9 +496,7 @@ export async function create_new_game(
     min_players = MIN_PLAYERS,
     max_players = MAX_PLAYERS,
 ): Promise<IGameData | null> {
-    console.log('asdf');
     const can_create = await can_create_new_game();
-    console.log('qwer');
     if (!can_create) {
         return null;
     }
