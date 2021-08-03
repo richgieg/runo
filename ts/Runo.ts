@@ -96,11 +96,13 @@ async function save_state(game_data: IGameData): Promise<boolean> {
 export async function get_open_games(): Promise<IGameData[]> {
     const games: IGameData[] = [];
     const query = `
-        select data from games where
-            (data->>'active')::boolean = false and
-            (data->>'ended_at') is null and
-            (data->>'created_at')::timestamp > current_timestamp - interval '30 minutes'
-            order by (data->>'created_at')::timestamp desc`;
+    select data from games
+    where (
+        (data->>'active')::boolean = false and
+        (data->>'ended_at') is null and
+        cast_iso_datetime_string_to_timestamp(data->>'created_at') > current_timestamp - interval '30 minutes'
+    )
+    order by cast_iso_datetime_string_to_timestamp(data->>'created_at') desc`;
     const rows = await databaseService.query(query);
     for (const row of rows) {
         const game_data: IGameData = row.data;
@@ -113,8 +115,8 @@ export async function get_open_games(): Promise<IGameData[]> {
 
 async function can_create_new_game(): Promise<boolean> {
     const query = `
-        select count(*) from games where
-            (data->>'created_at')::timestamp > current_timestamp - interval '1 day'`;
+        select count(*) from games
+        where cast_iso_datetime_string_to_timestamp(data->>'created_at') > current_timestamp - interval '1 day'`;
     const rows = await databaseService.query(query);
     const num_games = Number(rows[0].count);
     return num_games < MAX_GAMES_PER_DAY;
@@ -494,7 +496,9 @@ export async function create_new_game(
     min_players = MIN_PLAYERS,
     max_players = MAX_PLAYERS,
 ): Promise<IGameData | null> {
+    console.log('asdf');
     const can_create = await can_create_new_game();
+    console.log('qwer');
     if (!can_create) {
         return null;
     }
