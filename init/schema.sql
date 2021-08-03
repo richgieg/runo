@@ -12,6 +12,14 @@ create index idx_games_created_at on games(
     cast_iso_datetime_string_to_timestamp(data->>'created_at')
 );
 
+create index idx_games_started_at on games(
+    cast_iso_datetime_string_to_timestamp(data->>'started_at')
+);
+
+create index idx_games_ended_at on games(
+    cast_iso_datetime_string_to_timestamp(data->>'ended_at')
+);
+
 create index idx_games_active_ended_at_created_at on games(
     (data->>'active'),
     (data->>'ended_at'),
