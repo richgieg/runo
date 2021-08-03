@@ -5,5 +5,5 @@ game UNO. I hope you enjoy!
 
 To play the game, visit the live site at https://runogame.com.
 
-NOTE: I wrote the back end in Python back in 2015 and recently ported it to
-TypeScript (September 2019).
+NOTE: I wrote the back end in Python in 2015 and ported it, somewhat recklessly, to
+TypeScript in September of 2019. I plan on doing a rewrite someday.
