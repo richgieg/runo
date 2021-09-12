@@ -5,7 +5,7 @@
     "private": true,
     "author": "Richard Gieg",
     "engines": {
-        "node": "14.x.x"
+        "node": "10.x.x"
     },
     "scripts": {
         "prepare": "npm run gcp-build",
