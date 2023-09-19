@@ -63,11 +63,6 @@ td {
     padding: 1em;
 }
 
-.donate-button {
-    text-align: center;
-    margin: 8px;
-}
-
 @media (min-width: 500px) {
     table {
         font-size: 0.8em;
