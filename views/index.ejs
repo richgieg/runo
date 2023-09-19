@@ -36,7 +36,7 @@
             </div>
             <h2 id="create">Create a New Game</h2>
             <div class="form-container form-group">
-                <form action="/newgame" method="get">
+                <form id="createForm" action="/newgame" method="get">
                     <label for="player_name">Your Name</label><br>
                     <input class="form-control" type="text" name="player_name"
                         id="player_name" maxlength="<%= max_player_name_length %>" required><br>
@@ -44,11 +44,19 @@
                         <input class="btn btn-default" type="submit" value="Create">
                     </div>
                 </form>
+                <script>
+                    const createForm = document.getElementById("createForm");
+                    createForm.onsubmit = (event) => {
+                        amplitude.track("Create Game", {
+                            "Player Name": event.target[0].value,
+                        });
+                    };
+                </script>
             </div>
             <% if (open_games.length > 0) { %>
                 <h2 id="join">Join an Existing Game</h2>
                 <div class="form-container form-group">
-                    <form action="/join" method="get">
+                    <form id="joinForm" action="/join" method="get">
                         <label for="player_name">Your Name</label><br>
                         <input class="form-control" type="text" name="name"
                             id="player_name" maxlength="<%= max_player_name_length %>" required><br>
@@ -82,6 +90,14 @@
                             <input class="btn btn-default" type="submit" value="Join">
                         </div>
                     </form>
+                    <script>
+                        const joinForm = document.getElementById("joinForm");
+                        joinForm.onsubmit = (event) => {
+                            amplitude.track("Join Game", {
+                                "Player Name": event.target[0].value,
+                            });
+                        };
+                    </script>
                 </div>
             <% } %>
         </div>
