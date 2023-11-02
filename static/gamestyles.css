@@ -234,6 +234,7 @@ table {
     font-size: 0.6em;
     color: #a1a1a1;
     margin: 1em;
+    line-height: 1.5em;
 }
 
 #description > a {
