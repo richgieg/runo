@@ -1,3 +1,25 @@
+#jobvp-link {
+    display: block;
+    margin: 8px auto;
+    cursor: pointer;
+}
+
+#jobvp-link > img {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    #jobvp-link {
+        width: 90%;
+    }
+}
+
+@media (min-width: 960px) {
+    #jobvp-link {
+        width: 864px;
+    }
+}
+
 h1 {
     font-weight: bold;
     margin: 0;
