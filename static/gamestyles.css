@@ -229,18 +229,6 @@ table {
     background-color: #d6d604;
 }
 
-#description {
-    text-align: center;
-    font-size: 0.6em;
-    color: #a1a1a1;
-    margin: 1em;
-    line-height: 1.5em;
-}
-
-#description > a {
-    color: #a1a1a1 !important;
-}
-
 @media (min-width: 400px) {
     #scoreboard {
         font-size: 10px;
@@ -305,10 +293,6 @@ table {
     .card-content {
         width: 95px;
         height: 121px;
-    }
-
-    #description {
-        font-size: 0.8em;
     }
 }
 
