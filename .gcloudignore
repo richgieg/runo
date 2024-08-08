@@ -1,0 +1,13 @@
+/.gcloudignore
+/.git
+/.gitignore
+/.vscode
+/bin
+/init
+/frontend-src
+/js
+/node_modules
+/deploy.cmd
+/launch.cmd
+/launch-db-proxy-only.cmd
+*.log

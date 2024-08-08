@@ -1,0 +1,15 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        // include VS Code defaults
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+
+        // exclude generated JavaScript files
+        "js/": true,
+        "node_modules/": true
+    }
+}

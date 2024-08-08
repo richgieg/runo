@@ -1,0 +1,7 @@
+/js
+/node_modules
+/app.yaml
+/deploy.cmd
+/launch.cmd
+/launch-db-proxy-only.cmd
+*.log

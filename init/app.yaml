@@ -1,0 +1,16 @@
+runtime: nodejs14
+automatic_scaling:
+  max_instances: 1
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301
+env_variables:
+  DATABASE_USERNAME: "#####"
+  DATABASE_PASSWORD: "#####"
+  DATABASE_NAME: "#####"
+  DATABASE_HOST: "#####"
+  DATABASE_PORT: ""
+  CORS_ALLOWED_ORIGINS: "#####"
+  AMPLITUDE_KEY: "#####"

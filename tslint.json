@@ -1,0 +1,28 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "comment-format": false,
+        "curly": false,
+        "forin": false,
+        "max-classes-per-file": false,
+        "max-line-length": false,
+        "member-ordering": false,
+        "no-console": false,
+        "no-empty": false,
+        "no-floating-promises": true,
+        "no-trailing-whitespace": false,
+        "object-literal-sort-keys": false,
+        "one-line": false,
+        "only-arrow-functions": false,
+        "ordered-imports": false,
+        "prefer-const": false,
+        "prefer-for-of": false,
+        "quotemark": false,
+        "variable-name": {
+            "options": [
+                "allow-snake-case"
+            ]
+        },
+        "whitespace": false
+    }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>RUNO | the UNO clone</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/gamestyles.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script data-ad-client="ca-pub-8973025444375544" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script type="text/javascript">
+        !function(){"use strict";!function(e,t){var n=e.amplitude||{_q:[],_iq:{}};if(n.invoked)e.console&&console.error&&console.error("Amplitude snippet has been loaded.");else{var r=function(e,t){e.prototype[t]=function(){return this._q.push({name:t,args:Array.prototype.slice.call(arguments,0)}),this}},s=function(e,t,n){return function(r){e._q.push({name:t,args:Array.prototype.slice.call(n,0),resolve:r})}},o=function(e,t,n){e[t]=function(){if(n)return{promise:new Promise(s(e,t,Array.prototype.slice.call(arguments)))}}},i=function(e){for(var t=0;t<m.length;t++)o(e,m[t],!1);for(var n=0;n<g.length;n++)o(e,g[n],!0)};n.invoked=!0;var u=t.createElement("script");u.type="text/javascript",u.integrity="sha384-x0ik2D45ZDEEEpYpEuDpmj05fY91P7EOZkgdKmq4dKL/ZAVcufJ+nULFtGn0HIZE",u.crossOrigin="anonymous",u.async=!0,u.src="https://cdn.amplitude.com/libs/analytics-browser-2.0.0-min.js.gz",u.onload=function(){e.amplitude.runQueuedFunctions||console.log("[Amplitude] Error: could not load SDK")};var a=t.getElementsByTagName("script")[0];a.parentNode.insertBefore(u,a);for(var c=function(){return this._q=[],this},p=["add","append","clearAll","prepend","set","setOnce","unset","preInsert","postInsert","remove","getUserProperties"],l=0;l<p.length;l++)r(c,p[l]);n.Identify=c;for(var d=function(){return this._q=[],this},f=["getEventProperties","setProductId","setQuantity","setPrice","setRevenue","setRevenueType","setEventProperties"],v=0;v<f.length;v++)r(d,f[v]);n.Revenue=d;var m=["getDeviceId","setDeviceId","getSessionId","setSessionId","getUserId","setUserId","setOptOut","setTransport","reset","extendSession"],g=["init","add","remove","track","logEvent","identify","groupIdentify","setGroup","revenue","flush"];i(n),n.createInstance=function(e){return n._iq[e]={_q:[]},i(n._iq[e]),n._iq[e]},e.amplitude=n}}(window,document)}();
+        amplitude.init('<%= process.env.AMPLITUDE_KEY %>');
+    </script>
+</head>
+<body>
+    <div id="game">
+        <div id="topbar">
+            <h1>RUNO -- the UNO clone</h1>
+        </div>
+        <div id="tray">
+            <h2>Welcome to RUNO</h2>
+            <div id="about" class="form-container">
+                RUNO is a browser-based multiplayer online game modeled after the
+                popular card game UNO. To host a new game, see the
+                <a href="#create">Create a New Game</a> section below. Upon your
+                arrival into the game environment, you'll find a game identifier
+                (such as Game71038) in the upper-left portion of the screen. Give
+                this identifier to your friends so they can join your game.<br><br>
+                If you're here to join your friend's game, hopefully
+                you'll find it in the
+                <a href="#join">Join an Existing Game</a> section below. If that
+                section isn't visible, it's because there aren't any games that
+                are accepting new players at this time.
+            </div>
+            <h2 id="create">Create a New Game</h2>
+            <div class="form-container form-group">
+                <form id="createForm" action="/newgame" method="get">
+                    <label for="player_name">Your Name</label><br>
+                    <input class="form-control" type="text" name="player_name"
+                        id="player_name" maxlength="<%= max_player_name_length %>" required><br>
+                    <div class="buttons">
+                        <input class="btn btn-default" type="submit" value="Create">
+                    </div>
+                </form>
+                <script>
+                    const createForm = document.getElementById("createForm");
+                    createForm.onsubmit = (event) => {
+                        amplitude.track("Create Game", {
+                            "Player Name": event.target[0].value,
+                        });
+                    };
+                </script>
+            </div>
+            <% if (open_games.length > 0) { %>
+                <h2 id="join">Join an Existing Game</h2>
+                <div class="form-container form-group">
+                    <form id="joinForm" action="/join" method="get">
+                        <label for="player_name">Your Name</label><br>
+                        <input class="form-control" type="text" name="name"
+                            id="player_name" maxlength="<%= max_player_name_length %>" required><br>
+                        <table id="gamelist" class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-1"></th>
+                                    <th class="col-xs-3">Game</th>
+                                    <th class="col-xs-2">Players</th>
+                                    <th class="col-xs-6">Created At (UTC)</th>
+                            </thead>
+                            <tbody>
+                                <% let count = 0 %>
+                                <% for (const game of open_games) { %>
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="game_id"
+                                                id="<%= game.id %>" value="<%= game.id %>"<%= (count === 0) ? 'checked' : '' %> required>
+                                        </td>
+                                        <td>
+                                            <label for="<%= game.id %>"><%= game.name %></label>
+                                        </td>
+                                        <td><%= game.players.length %></td>
+                                        <td><%= game.created_at %></td>
+                                    </tr>
+                                    <% count++ %>
+                                <% } %>
+                            </tbody>
+                        </table>
+                        <div class="buttons">
+                            <input class="btn btn-default" type="submit" value="Join">
+                        </div>
+                    </form>
+                    <script>
+                        const joinForm = document.getElementById("joinForm");
+                        joinForm.onsubmit = (event) => {
+                            amplitude.track("Join Game", {
+                                "Player Name": event.target[0].value,
+                            });
+                        };
+                    </script>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <div id="description">
+        Developed by <a href="https://www.richgieg.com">Richard Gieg</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</body>
+</html>

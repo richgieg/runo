@@ -1,0 +1,104 @@
+h1 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 1em;
+}
+
+#tray {
+    padding: 0.1em 1em 2em;
+}
+
+h2 {
+    background-color: #f8f8f8;
+    border-radius: 0.8em;
+    box-shadow: 3px 3px 3px #606060;
+    font-size: 1.1em;
+    padding: 0.6em;
+    margin: 1.5em auto 0.8em;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+}
+
+.form-container {
+    text-align: center;
+    background-color: rgba(238,238,238,0.9);
+    border-radius: 1em;
+    box-shadow: 3px 3px 3px #606060;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    color: #3987be;
+}
+
+table {
+    font-size: 0.5em;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.buttons {
+    text-align: right;
+}
+
+.btn {
+    width: 6em;
+}
+
+#about {
+    line-height: 1.4em;
+    text-align: left;
+    color: #808080;
+    font-size: 0.8em;
+    padding: 1em;
+}
+
+@media (min-width: 500px) {
+    table {
+        font-size: 0.8em;
+    }
+
+    #about {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 768px) {
+    #tray {
+        padding: 0.1em 2em 2em;
+    }
+
+    h2 {
+        width: 90%;
+        font-size: 1.4em;
+    }
+
+    .form-container {
+        width: 90%;
+        padding: 4em;
+    }
+
+    #about {
+        padding: 2em 4em;
+    }
+}
+
+@media (min-width: 960px) {
+    #tray {
+        padding: 0.1em 2em 2em;
+    }
+
+    table {
+        font-size: 1em;
+    }
+}
