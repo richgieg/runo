@@ -1,6 +1,6 @@
 create function cast_iso_datetime_string_to_timestamp(text)
 returns timestamptz as
-    $$select to_timestamp($1, 'YYYY-MM-DD HH24:MI:SS.MS')$$
+    $$select to_timestamp($1, 'YYYY-MM-DD"T"HH24:MI:SS.MS')$$
 language sql immutable;
 
 create table games (
