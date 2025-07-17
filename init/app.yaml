@@ -14,3 +14,5 @@ env_variables:
   DATABASE_PORT: ""
   CORS_ALLOWED_ORIGINS: "#####"
   AMPLITUDE_KEY: "#####"
+beta_settings:
+  cloud_sql_instances: "#####"
