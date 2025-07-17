@@ -15,4 +15,4 @@ env_variables:
   CORS_ALLOWED_ORIGINS: "#####"
   AMPLITUDE_KEY: "#####"
 beta_settings:
-  cloud_sql_instances: "#####"
+  cloud_sql_instances: #####
